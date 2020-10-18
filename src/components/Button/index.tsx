@@ -1,8 +1,16 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ButtonProps, Button } from 'react-native-elements';
+import { colors } from '../../constants';
+import styles from './styles';
 
-const Button: React.FC = () => {
-  return <View />;
+const CustomButton: React.FC<ButtonProps> = props => {
+  return (
+    <Button
+      containerStyle={{ width: '100%' }}
+      buttonStyle={styles.container}
+      {...props}
+    />
+  );
 };
 
-export default Button;
+export default CustomButton;
