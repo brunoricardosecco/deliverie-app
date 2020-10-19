@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 
+import AppProvider from './hooks';
 import Routes from './routes';
 
 const App: React.FC = () => {
@@ -11,7 +12,9 @@ const App: React.FC = () => {
         translucent
         backgroundColor="transparent"
       />
-      <Routes />
+      <AppProvider>
+        <Routes />
+      </AppProvider>
     </>
   );
 };
