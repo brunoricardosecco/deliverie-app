@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import api from '../services/api';
 
 import { signIn as signInService } from '../services/auth';
+import { useNavigation } from '@react-navigation/native';
 
 interface User {
   id: number;
@@ -37,6 +38,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>({} as AuthState);
   const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
 
   const signIn = useCallback(async ({ email, password }) => {
     try {
@@ -53,6 +55,7 @@ const AuthProvider: React.FC = ({ children }) => {
       api.defaults.headers.authorization = `Bearer ${token}`;
       console.log(user);
       setData({ token, user });
+      navigation.navigate('ListCompanies');
     } catch (error) {
       console.log(error);
     } finally {

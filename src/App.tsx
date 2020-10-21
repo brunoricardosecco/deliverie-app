@@ -3,6 +3,18 @@ import { StatusBar } from 'react-native';
 
 import AppProvider from './hooks';
 import Routes from './routes';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+
+const AppContainer: React.FC = props => {
+  return (
+    <AppProvider {...props}>
+      <Routes {...props} />
+    </AppProvider>
+  );
+};
+
+const Stack = createStackNavigator();
 
 const App: React.FC = () => {
   return (
@@ -12,9 +24,17 @@ const App: React.FC = () => {
         translucent
         backgroundColor="transparent"
       />
-      <AppProvider>
-        <Routes />
-      </AppProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            component={AppContainer}
+            name="Root"
+            options={{
+              headerShown: false,
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </>
   );
 };
