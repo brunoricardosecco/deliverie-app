@@ -11,3 +11,11 @@ export const signIn = ({ email, password }: SignInCredentials): any => {
     },
   });
 };
+
+export const signUp = (requestObj: object): any => {
+  return api.request({
+    method: 'POST',
+    url: 'users',
+    data: requestObj,
+  });
+};
