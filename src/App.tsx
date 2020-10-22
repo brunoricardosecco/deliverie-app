@@ -6,6 +6,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import AppProvider from './hooks';
 import Routes from './routes';
 
+if (__DEV__) {
+  import('./ReactotronConfig').then(() => console.log('Reactotron Configured'));
+}
+
 const AppContainer: React.FC = props => {
   return (
     <AppProvider {...props}>

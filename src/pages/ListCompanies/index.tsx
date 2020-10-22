@@ -9,6 +9,7 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import {
   Container,
   Header,
@@ -19,7 +20,6 @@ import {
   CompanyContainer,
 } from './styles';
 import { useCompany, Company } from '../../hooks/CompanyContext';
-import { FlatList } from 'react-native-gesture-handler';
 
 const CompanyItem = ({
   profileImages,
@@ -27,9 +27,12 @@ const CompanyItem = ({
   delivery_price,
 }: Company) => (
   <CompanyContainer>
-    <CompanyImage src={profileImages?.path} />
+    <CompanyImage source={profileImages?.path} />
     <CompanyName>{trading_name}</CompanyName>
-    <CompanyDelivery>R$ {delivery_price}</CompanyDelivery>
+    <CompanyDelivery>
+      R$
+      {delivery_price}
+    </CompanyDelivery>
   </CompanyContainer>
 );
 

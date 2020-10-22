@@ -74,10 +74,7 @@ const AuthProvider: React.FC = ({ children }) => {
         ['@Delivery:user', JSON.stringify(user)],
       ]);
 
-      api.defaults.headers.authorization = `Bearer ${token}`;
-
       setData({ token, user });
-      navigation.navigate('ListCompanies');
     } catch (error) {
       console.log(error);
     } finally {

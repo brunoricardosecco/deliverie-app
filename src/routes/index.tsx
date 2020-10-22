@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import AuthStack from './AuthStack';
 import AppProvider from '../hooks';
 
-import CompaniesStack from './CompaniesStack';
+import BottomTab from './BottomTab';
 import { useAuth } from '../hooks/AuthContext';
 
 const Stack = createStackNavigator();
@@ -17,8 +17,8 @@ const Routes: React.FC = () => {
     <Stack.Navigator>
       {user ? (
         <Stack.Screen
-          component={CompaniesStack}
-          name="ListCompanies"
+          component={BottomTab}
+          name="BottomTab"
           options={{ headerShown: false }}
         />
       ) : (

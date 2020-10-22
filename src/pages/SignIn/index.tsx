@@ -124,7 +124,6 @@ const SignIn: React.FC = () => {
                 false,
               )}
               title="Quero me cadastrar"
-              loading={loading}
               type="clear"
               buttonStyle={{ marginTop: metrics.margin }}
               onPress={() => navigation.navigate('SignUp')}
