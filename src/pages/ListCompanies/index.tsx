@@ -29,7 +29,10 @@ const CompanyItem = ({
         }
       />
       <CompanyName>{trading_name}</CompanyName>
-      <CompanyDelivery>R$ {delivery_price}</CompanyDelivery>
+      <CompanyDelivery>
+        R$
+        {delivery_price}
+      </CompanyDelivery>
     </CompanyContainer>
   </TouchableOpacity>
 );
@@ -109,8 +112,7 @@ const ListCompanies: React.FC = ({ navigation }) => {
               navigation.navigate('ListProducts', {
                 screen: 'ListProducts',
                 params: { company: item },
-              })
-            }
+              })}
           />
         )}
         keyExtractor={item => String(item?.id)}

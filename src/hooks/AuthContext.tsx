@@ -1,10 +1,13 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import { useNavigation } from '@react-navigation/native';
 import api from '../services/api';
 
-import { signIn as signInService } from '../services/auth';
-import { useNavigation } from '@react-navigation/native';
+import {
+  signIn as signInService,
+  signUp as signUpService,
+} from '../services/auth';
 
 interface User {
   id: number;
@@ -26,21 +29,40 @@ interface SignInCredentials {
   password: string;
 }
 
+interface SignUpCredentials {
+  city: string;
+  complement: string;
+  cpf: string;
+  district: string;
+  email: string;
+  number: string;
+  password: string;
+  phoneDdd: string;
+  phoneNumber: string;
+  state: string;
+  street: string;
+  username: string;
+  zipCode: string;
+}
+
 interface AuthContextData {
   user: User;
   loading: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
+  signUp(request: SignUpCredentials, goBack: any): Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
+  // states
   const [data, setData] = useState<AuthState>({} as AuthState);
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-  const signIn = useCallback(async ({ email, password }) => {
+  // functions
+  const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
     try {
       setLoading(true);
       const response = await signInService({ email, password });
@@ -52,22 +74,45 @@ const AuthProvider: React.FC = ({ children }) => {
         ['@Delivery:user', JSON.stringify(user)],
       ]);
 
-      api.defaults.headers.authorization = `Bearer ${token}`;
-
       setData({ token, user });
-      navigation.navigate('ListCompanies');
     } catch (error) {
+      console.log(error);
     } finally {
       setLoading(false);
     }
   }, []);
+
+  const signUp = useCallback(
+    async (request: SignUpCredentials, goBack: any) => {
+      try {
+        setLoading(true);
+        const requestObj = {
+          ...request,
+          phone_ddd: request.phoneDdd,
+          phone_number: request.phoneNumber,
+          zipcode: request.zipCode,
+        };
+
+        const response = await signUpService(requestObj);
+
+        goBack();
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [],
+  );
 
   const signOut = useCallback(() => {
     setData({} as AuthState);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signOut, loading }}>
+    <AuthContext.Provider
+      value={{ user: data.user, signIn, signOut, signUp, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );

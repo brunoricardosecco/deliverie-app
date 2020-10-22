@@ -10,6 +10,7 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.10",
+    "@react-navigation/bottom-tabs": "^5.9.2",
     "@react-navigation/native": "^5.7.6",
     "@react-navigation/stack": "^5.9.3",
     "@types/react-native-elements": "^0.18.0",
@@ -54,6 +55,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "jest-expo": "~39.0.0",
     "prettier": "^2.1.2",
+    "reactotron-react-native": "^5.0.0",
     "typescript": "~3.9.5"
   },
   "jest": {

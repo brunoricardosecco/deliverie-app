@@ -1,34 +1,33 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
+import { createStackNavigator } from '@react-navigation/stack';
 import AuthStack from './AuthStack';
 import AppProvider from '../hooks';
-import { createStackNavigator } from '@react-navigation/stack';
 
-import CompaniesStack from './CompaniesStack';
-import ProductStack from './ProductStack';
+import BottomTab from './BottomTab';
+import { useAuth } from '../hooks/AuthContext';
 
 const Stack = createStackNavigator();
 
 const Routes: React.FC = () => {
+  const { user } = useAuth();
+
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        component={AuthStack}
-        name="Auth"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        component={CompaniesStack}
-        name="ListCompanies"
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        component={ProductStack}
-        name="ListProducts"
-        options={{ headerShown: false }}
-      />
+      {user ? (
+        <Stack.Screen
+          component={BottomTab}
+          name="BottomTab"
+          options={{ headerShown: false }}
+        />
+      ) : (
+        <Stack.Screen
+          component={AuthStack}
+          name="Auth"
+          options={{ headerShown: false }}
+        />
+      )}
     </Stack.Navigator>
   );
 };

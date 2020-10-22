@@ -1,9 +1,16 @@
 import React, { useCallback, useRef } from 'react';
-import { Platform, TextInput, ScrollView, Alert } from 'react-native';
+import {
+  Platform,
+  TextInput,
+  ScrollView,
+  Alert,
+  TouchableNativeFeedback,
+} from 'react-native';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import { Input as InputElements } from 'react-native-elements';
 import * as Yup from 'yup';
+import { useNavigation } from '@react-navigation/native';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
@@ -13,6 +20,7 @@ import Header from '../../components/Header';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { Container, Logo, InnerContainer } from './styles';
+import { metrics } from '../../constants';
 
 interface SignInFormData {
   email: string;
@@ -20,6 +28,9 @@ interface SignInFormData {
 }
 
 const SignIn: React.FC = () => {
+  // hooks
+  const navigation = useNavigation();
+
   // refs
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
@@ -106,6 +117,16 @@ const SignIn: React.FC = () => {
               type="solid"
               loading={loading}
               onPress={() => formRef.current?.submitForm()}
+            />
+            <Button
+              background={TouchableNativeFeedback.Ripple(
+                'ThemeAttrAndroid',
+                false,
+              )}
+              title="Quero me cadastrar"
+              type="clear"
+              buttonStyle={{ marginTop: metrics.margin }}
+              onPress={() => navigation.navigate('SignUp')}
             />
           </Form>
         </InnerContainer>
