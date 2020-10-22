@@ -7,3 +7,7 @@ export const fetchCompanies = (company_category_id: any): any => {
     },
   });
 };
+
+export const fetchCategories = (): any => {
+  return api.get('company-categories');
+};

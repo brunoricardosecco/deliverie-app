@@ -3,7 +3,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { useAuth } from '../hooks/AuthContext';
 
-import ListCompanies from '../pages/ListCompanies';
+import CompaniesStack from './CompaniesStack';
+import Product from './ProductStack';
 import ListOrders from '../pages/ListOrders';
 
 const Tab = createBottomTabNavigator();
@@ -13,10 +14,10 @@ const MyTabs: React.FC = () => {
 
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Início" component={ListCompanies} />
+      <Tab.Screen name="Início" component={CompaniesStack} />
       <Tab.Screen name="Pedidos" component={ListOrders} />
-      <Tab.Screen name="Configurações" component={ListCompanies} />
-      <Tab.Screen name={user.email} component={ListCompanies} />
+      <Tab.Screen name="Configurações" component={CompaniesStack} />
+      <Tab.Screen name={user.email} component={CompaniesStack} />
     </Tab.Navigator>
   );
 };
