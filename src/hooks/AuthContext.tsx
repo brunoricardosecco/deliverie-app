@@ -53,11 +53,10 @@ const AuthProvider: React.FC = ({ children }) => {
       ]);
 
       api.defaults.headers.authorization = `Bearer ${token}`;
-      console.log(user);
+
       setData({ token, user });
       navigation.navigate('ListCompanies');
     } catch (error) {
-      console.log(error);
     } finally {
       setLoading(false);
     }

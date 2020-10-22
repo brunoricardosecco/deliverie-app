@@ -6,6 +6,7 @@ import AppProvider from '../hooks';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import CompaniesStack from './CompaniesStack';
+import ProductStack from './ProductStack';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,12 @@ const Routes: React.FC = () => {
       <Stack.Screen
         component={CompaniesStack}
         name="ListCompanies"
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        component={ProductStack}
+        name="ListProducts"
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

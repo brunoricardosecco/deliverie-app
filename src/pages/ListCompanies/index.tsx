@@ -1,14 +1,5 @@
-import React, { useEffect } from 'react';
-import {
-  Platform,
-  TextInput,
-  ScrollView,
-  Alert,
-  View,
-  Text,
-  Image,
-  ActivityIndicator,
-} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
 import {
   Container,
   Header,
@@ -17,42 +8,111 @@ import {
   CompanyDelivery,
   CompanyName,
   CompanyContainer,
+  ScreenName,
+  CategoryName,
+  CategoryContainer,
 } from './styles';
 import { useCompany, Company } from '../../hooks/CompanyContext';
-import { FlatList } from 'react-native-gesture-handler';
+import Placeholder from '../../assets/images/a.png';
 
 const CompanyItem = ({
   profileImages,
   trading_name,
   delivery_price,
+  onPress = { onPress },
 }: Company) => (
-  <CompanyContainer>
-    <CompanyImage src={profileImages?.path} />
-    <CompanyName>{trading_name}</CompanyName>
-    <CompanyDelivery>R$ {delivery_price}</CompanyDelivery>
-  </CompanyContainer>
+  <TouchableOpacity onPress={onPress}>
+    <CompanyContainer>
+      <CompanyImage
+        source={
+          profileImages?.path ? { uri: profileImages?.path } : Placeholder
+        }
+      />
+      <CompanyName>{trading_name}</CompanyName>
+      <CompanyDelivery>R$ {delivery_price}</CompanyDelivery>
+    </CompanyContainer>
+  </TouchableOpacity>
 );
 
-const ListCompanies: React.FC = () => {
-  const { get, loading, companies } = useCompany();
+const CategoryItem = ({ name, isActive = false, onPress }) => (
+  <TouchableOpacity onPress={onPress}>
+    <CategoryContainer>
+      <CategoryName isActive={isActive}>
+        {`${String(name).toUpperCase()}`}
+      </CategoryName>
+    </CategoryContainer>
+  </TouchableOpacity>
+);
+
+const ListCompanies: React.FC = ({ navigation }) => {
+  const {
+    get,
+    loading,
+    companies,
+    getCategories,
+    categories,
+    loadingCategories,
+    setSelected,
+  } = useCompany();
+  const [active, setActive] = useState<number>(0);
 
   useEffect(() => {
     get();
+    getCategories();
   }, []);
+
+  useEffect(() => {
+    if (active > 0) {
+      get(active);
+    }
+  }, [active]);
 
   return (
     <Container>
       <Header>
         <Title>Delivery</Title>
+        <ScreenName>Estabelecimentos</ScreenName>
       </Header>
 
       {loading && <ActivityIndicator color="white" />}
 
       <FlatList
-        style={{ flexGrow: 1 }}
+        data={categories}
+        style={{
+          flexGrow: 0,
+          marginBottom: 20,
+        }}
+        onRefresh={() => getCategories()}
+        refreshing={loadingCategories}
+        horizontal
+        extraData={categories}
+        renderItem={({ item }) => (
+          <CategoryItem
+            {...item}
+            isActive={active === item?.id}
+            onPress={() => setActive(item.id)}
+          />
+        )}
+        keyExtractor={item => String(item?.id)}
+      />
+
+      <FlatList
+        style={{ flex: 1 }}
         data={companies}
+        onRefresh={() => get()}
+        refreshing={loading}
         extraData={companies}
-        renderItem={({ item }) => <CompanyItem {...item} />}
+        renderItem={({ item }) => (
+          <CompanyItem
+            {...item}
+            onPress={() =>
+              navigation.navigate('ListProducts', {
+                screen: 'ListProducts',
+                params: { company: item },
+              })
+            }
+          />
+        )}
         keyExtractor={item => String(item?.id)}
       />
     </Container>

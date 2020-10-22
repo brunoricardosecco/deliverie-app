@@ -6,7 +6,7 @@ import { colors } from '../../constants';
 export const Container = styled.KeyboardAvoidingView`
   flex: 1;
   background-color: ${colors.primaryDark};
-  padding-top: ${Platform.OS === 'android' ? StatusBar.currentHeight : 0}px;
+  padding-top: ${Platform.OS === 'android' ? StatusBar.currentHeight : 24}px;
 `;
 
 export const Header = styled.View`
@@ -18,6 +18,14 @@ export const Title = styled.Text`
   font-weight: bold;
   color: #fff;
   font-size: 18px;
+`;
+
+export const ScreenName = styled.Text`
+  text-align: center;
+  font-weight: 200;
+  margin-vertical: 10px;
+  color: #ffffffb2;
+  font-size: 16px;
 `;
 
 export const CompanyName = styled.Text`
@@ -34,8 +42,8 @@ export const CompanyDelivery = styled.Text`
 `;
 
 export const CompanyImage = styled.Image`
-  height: 100px;
-  width: 100px;
+  height: 64px;
+  width: 64px;
   background-color: #ffffff03;
 `;
 
@@ -44,5 +52,21 @@ export const CompanyContainer = styled.View`
   background-color: #212121;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  margin-horizontal: 20px;
+`;
+
+export const CategoryContainer = styled.View`
+  border-width: 1px;
+  margin-top: 10px;
+  border-color: #ffffff52;
+  ${({ isActive }) => isActive && `{ background-color: #ffffff03; }`};
+`;
+
+export const CategoryName = styled.Text`
+  font-weight: 200;
+  color: #fff;
+  font-size: 18px;
+  padding: 15px;
+  ${({ isActive }) => isActive && `font-weight: bold`}
 `;
