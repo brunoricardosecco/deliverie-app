@@ -1,12 +1,11 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ProductProvider } from '../hooks/ProductsContext';
+
 import ListProducts from '../pages/ListProducts';
 
 const Product = createStackNavigator();
 
-const ProductStack: React.FC = props => {
+const ProductStack: React.FC = () => {
   return (
     <Product.Navigator>
       <Product.Screen

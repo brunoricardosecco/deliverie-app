@@ -1,9 +1,7 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-
 import { createStackNavigator } from '@react-navigation/stack';
+
 import AuthStack from './AuthStack';
-import AppProvider from '../hooks';
 
 import BottomTab from './BottomTab';
 import { useAuth } from '../hooks/AuthContext';

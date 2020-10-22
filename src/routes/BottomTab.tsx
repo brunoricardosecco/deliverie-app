@@ -4,7 +4,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useAuth } from '../hooks/AuthContext';
 
 import CompaniesStack from './CompaniesStack';
-import Product from './ProductStack';
 import ListOrders from '../pages/ListOrders';
 
 const Tab = createBottomTabNavigator();
