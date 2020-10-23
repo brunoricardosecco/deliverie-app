@@ -6,3 +6,11 @@ export const getAll = (): any => {
     url: 'orders',
   });
 };
+
+export const create = (data): any => {
+  return api.request({
+    method: 'POST',
+    url: 'orders',
+    data,
+  });
+};

@@ -13,7 +13,6 @@ import {
 import { useOrder, OrderProps } from '../../hooks/OrdersContext';
 
 const OrderItem = (item: OrderProps) => {
-  console.log(item);
   return <></>;
   return (
     <OrderContainer>
@@ -28,7 +27,6 @@ const OrderItem = (item: OrderProps) => {
 
 const ListOrder: React.FC = () => {
   const { getAll, loading, orders } = useOrder();
-  console.log(orders);
   useEffect(() => {
     getAll();
   }, []);

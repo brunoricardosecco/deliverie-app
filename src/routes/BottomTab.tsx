@@ -16,7 +16,7 @@ const MyTabs: React.FC = () => {
       <Tab.Screen name="Início" component={CompaniesStack} />
       <Tab.Screen name="Pedidos" component={ListOrders} />
       <Tab.Screen name="Configurações" component={CompaniesStack} />
-      <Tab.Screen name={user.email} component={CompaniesStack} />
+      <Tab.Screen name="anitto" component={CompaniesStack} />
     </Tab.Navigator>
   );
 };

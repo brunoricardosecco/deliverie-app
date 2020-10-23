@@ -17,6 +17,7 @@ interface User {
   phone_ddd: string;
   phone_number: string;
   profile_image_id: string;
+  addresses: object;
 }
 
 interface AuthState {

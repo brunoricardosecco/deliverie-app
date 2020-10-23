@@ -13,13 +13,14 @@ import {
   CategoryContainer,
 } from './styles';
 import { useCompany, Company } from '../../hooks/CompanyContext';
+import { useCart } from '../../hooks/CartContext';
 import Placeholder from '../../assets/images/a.png';
 
 const CompanyItem = ({
   profileImages,
   trading_name,
   delivery_price,
-  onPress = { onPress },
+  onPress,
 }: Company) => (
   <TouchableOpacity onPress={onPress}>
     <CompanyContainer>
@@ -57,6 +58,7 @@ const ListCompanies: React.FC = ({ navigation }) => {
     loadingCategories,
     setSelected,
   } = useCompany();
+  const { addCompany } = useCart();
   const [active, setActive] = useState<number>(0);
 
   useEffect(() => {
@@ -108,11 +110,14 @@ const ListCompanies: React.FC = ({ navigation }) => {
         renderItem={({ item }) => (
           <CompanyItem
             {...item}
-            onPress={() =>
+            onPress={() => {
               navigation.navigate('ListProducts', {
                 screen: 'ListProducts',
                 params: { company: item },
-              })}
+              });
+              const { products, ...restCompany }: Partial<Company> = item;
+              addCompany(restCompany);
+            }}
           />
         )}
         keyExtractor={item => String(item?.id)}
