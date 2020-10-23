@@ -85,6 +85,7 @@ const ListCompanies: React.FC = ({ navigation }) => {
           flexGrow: 0,
           marginBottom: 20,
         }}
+        contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
         onRefresh={() => getCategories()}
         refreshing={loadingCategories}
         horizontal
@@ -112,7 +113,8 @@ const ListCompanies: React.FC = ({ navigation }) => {
               navigation.navigate('ListProducts', {
                 screen: 'ListProducts',
                 params: { company: item },
-              })}
+              })
+            }
           />
         )}
         keyExtractor={item => String(item?.id)}

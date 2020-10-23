@@ -51,6 +51,7 @@ export const CompanyContainer = styled.View`
   padding: 10px;
   background-color: #212121;
   flex-direction: row;
+  margin-vertical: 5px;
   align-items: center;
   justify-content: space-between;
   margin-horizontal: 20px;

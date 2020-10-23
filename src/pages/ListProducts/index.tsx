@@ -30,7 +30,9 @@ const ProductItem = ({
           productImages?.path ? { uri: productImages?.path } : Placeholder
         }
       />
-      <ProductName>{name}</ProductName>
+      <ProductName ellipsizeMode="tail" numberOfLines={1}>
+        {name}
+      </ProductName>
       <ProductDelivery>R$ {price}</ProductDelivery>
     </ProductContainer>
   </TouchableOpacity>

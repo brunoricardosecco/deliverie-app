@@ -13,7 +13,9 @@ export const ProductDelivery = styled.Text`
   text-align: center;
   color: #ffffffe2;
   font-size: 12px;
-  align-self: flex-end;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 `;
 
 export const ProductImage = styled.Image`
@@ -33,6 +35,7 @@ export const ProductContainer = styled.View`
 `;
 
 export const SeparatorSection = styled.View`
+  background-color: ${colors.primaryDark};
   padding: 10px;
   border-bottom-width: 0.5;
   border-color: #ffffff42;
@@ -40,7 +43,6 @@ export const SeparatorSection = styled.View`
   align-items: center;
   justify-content: space-between;
   margin-horizontal: 20px;
-  margin-vertical: 5px;
 `;
 
 export const SeparatorTitle = styled.Text`
