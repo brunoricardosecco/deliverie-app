@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import { Icon } from 'react-native-elements';
+import { View } from 'react-native';
 import { useAuth } from '../hooks/AuthContext';
 
 import CompaniesStack from './CompaniesStack';
 import ListOrders from '../pages/ListOrders';
 import { colors } from '../constants';
-import { Icon } from 'react-native-elements';
-import { View } from 'react-native';
 import SignIn from '../pages/SignIn';
 
 const Tab = createBottomTabNavigator();
@@ -19,7 +19,9 @@ const MyTabs: React.FC = ({ navigation }) => {
     <Tab.Navigator
       tabBarOptions={{
         tabStyle: { backgroundColor: '#212121' },
-        showIcon: true,
+        style: {
+          backgroundColor: '#212121',
+        },
       }}
     >
       <Tab.Screen
@@ -53,7 +55,6 @@ const MyTabs: React.FC = ({ navigation }) => {
         listeners={() => ({
           tabPress: ({ route }) => {
             signOut();
-            navigation.navigate('Auth');
           },
         })}
       />

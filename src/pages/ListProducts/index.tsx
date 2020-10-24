@@ -4,8 +4,12 @@ import {
   FlatList,
   TouchableOpacity,
   SectionList,
+  View,
 } from 'react-native';
-import { Title, ScreenName, Container, Header } from '../ListCompanies/styles';
+
+import CartButton from '../../components/CartButton';
+import { Title, ScreenName, Container } from '../ListCompanies/styles';
+import Header from '../../components/Header';
 import {
   ProductContainer,
   ProductImage,
@@ -15,14 +19,10 @@ import {
   SeparatorTitle,
 } from './styles';
 import { useProduct, Product } from '../../hooks/ProductsContext';
+import { useCart } from '../../hooks/CartContext';
 import Placeholder from '../../assets/images/a.png';
 
-const ProductItem = ({
-  productImages,
-  name,
-  price,
-  onPress = { onPress },
-}: Product) => (
+const ProductItem = ({ productImages, name, price, onPress }: Product) => (
   <TouchableOpacity onPress={onPress}>
     <ProductContainer>
       <ProductImage
@@ -33,19 +33,24 @@ const ProductItem = ({
       <ProductName ellipsizeMode="tail" numberOfLines={1}>
         {name}
       </ProductName>
-      <ProductDelivery>R$ {price}</ProductDelivery>
+      <ProductDelivery>
+        R$
+        {price}
+      </ProductDelivery>
     </ProductContainer>
   </TouchableOpacity>
 );
 
 const ListCompanies: React.FC = ({ route }) => {
   const { getProducts, loading, products, categories } = useProduct();
+  const { addProduct, clearList } = useCart();
   const { params } = route;
 
   useEffect(() => {
     if (params?.company?.id) {
       getProducts(params?.company?.id);
     }
+    return () => clearList();
   }, [params?.company]);
 
   return (
@@ -72,10 +77,13 @@ const ListCompanies: React.FC = ({ route }) => {
           </SeparatorSection>
         )}
         renderItem={({ item }) => (
-          <ProductItem {...item} onPress={() => console.log(item?.id)} />
+          <ProductItem {...item} onPress={() => addProduct(item)} />
         )}
         keyExtractor={item => String(item?.id)}
+        ListFooterComponent={() => <></>}
+        ListFooterComponentStyle={{ marginBottom: 60 }}
       />
+      <CartButton />
     </Container>
   );
 };

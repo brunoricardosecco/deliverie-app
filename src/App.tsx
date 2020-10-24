@@ -1,10 +1,11 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, View } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import AppProvider from './hooks';
 import Routes from './routes';
+import { colors } from './constants';
 
 if (__DEV__) {
   import('./ReactotronConfig').then(() => console.log('Reactotron Configured'));
@@ -22,7 +23,7 @@ const Stack = createStackNavigator();
 
 const App: React.FC = () => {
   return (
-    <>
+    <View style={{ flex: 1, backgroundColor: colors.primaryDark }}>
       <StatusBar
         barStyle="light-content"
         translucent
@@ -39,7 +40,7 @@ const App: React.FC = () => {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </>
+    </View>
   );
 };
 
