@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, View } from 'react-native';
+import { StatusBar, View, LogBox } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -22,6 +22,7 @@ const AppContainer: React.FC = props => {
 const Stack = createStackNavigator();
 
 const App: React.FC = () => {
+  LogBox.ignoreAllLogs();
   return (
     <View style={{ flex: 1, backgroundColor: colors.primaryDark }}>
       <StatusBar
