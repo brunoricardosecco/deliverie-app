@@ -36,6 +36,7 @@ interface ProductContextData {
   loading: boolean;
   getProducts: (companyId: number) => Promise<void>;
   categories: Array<ProductSection>;
+  updateProducts: () => void
 }
 
 export interface ProductSection {
@@ -82,9 +83,15 @@ const ProductProvider: React.FC = ({ children }) => {
     }
   };
 
+  const updateProducts = () => {
+    console.log('asd')
+    setData({products: []})
+    setCategories([])
+  }
+
   return (
     <ProductContext.Provider
-      value={{ loading, products: data.products, getProducts, categories }}
+      value={{ loading, products: data.products, getProducts, categories, updateProducts }}
     >
       {children}
     </ProductContext.Provider>

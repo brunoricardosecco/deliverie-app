@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  TouchableOpacity,
+  RefreshControl,
+} from 'react-native';
 import {
   Container,
   Title,
@@ -15,6 +20,7 @@ import Header from '../../components/Header';
 import { useCompany, Company } from '../../hooks/CompanyContext';
 import { useCart } from '../../hooks/CartContext';
 import Placeholder from '../../assets/images/a.png';
+import { colors } from '../../constants';
 
 const CompanyItem = ({
   profileImages,
@@ -88,8 +94,6 @@ const ListCompanies: React.FC = ({ navigation }) => {
           marginBottom: 20,
         }}
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
-        onRefresh={() => getCategories()}
-        refreshing={loadingCategories}
         horizontal
         extraData={categories}
         renderItem={({ item }) => (
@@ -100,6 +104,13 @@ const ListCompanies: React.FC = ({ navigation }) => {
           />
         )}
         keyExtractor={item => String(item?.id)}
+        refreshControl={
+          <RefreshControl
+            onRefresh={() => getCategories()}
+            refreshing={loadingCategories}
+            tintColor={colors.white}
+          />
+        }
       />
 
       <FlatList
@@ -108,6 +119,13 @@ const ListCompanies: React.FC = ({ navigation }) => {
         onRefresh={() => get()}
         refreshing={loading}
         extraData={companies}
+        refreshControl={
+          <RefreshControl
+            onRefresh={() => get()}
+            refreshing={loading}
+            tintColor={colors.white}
+          />
+        }
         renderItem={({ item }) => (
           <CompanyItem
             {...item}

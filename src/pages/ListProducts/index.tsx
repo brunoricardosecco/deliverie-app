@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   SectionList,
   View,
+  RefreshControl,
 } from 'react-native';
 
 import CartButton from '../../components/CartButton';
@@ -21,6 +22,7 @@ import {
 import { useProduct, Product } from '../../hooks/ProductsContext';
 import { useCart } from '../../hooks/CartContext';
 import Placeholder from '../../assets/images/a.png';
+import { colors } from '../../constants';
 
 const ProductItem = ({ productImages, name, price, onPress }: Product) => (
   <TouchableOpacity onPress={onPress}>
@@ -42,7 +44,13 @@ const ProductItem = ({ productImages, name, price, onPress }: Product) => (
 );
 
 const ListCompanies: React.FC = ({ route }) => {
-  const { getProducts, loading, products, categories } = useProduct();
+  const {
+    getProducts,
+    loading,
+    products,
+    categories,
+    updateProducts,
+  } = useProduct();
   const { addProduct, clearList } = useCart();
   const { params } = route;
 
@@ -68,9 +76,14 @@ const ListCompanies: React.FC = ({ route }) => {
         style={{
           flex: 1,
         }}
-        onRefresh={() => getProducts(params?.company?.id)}
-        refreshing={loading}
         extraData={products}
+        refreshControl={
+          <RefreshControl
+            onRefresh={() => updateProducts()}
+            refreshing={loading}
+            tintColor={colors.white}
+          />
+        }
         renderSectionHeader={({ section: { title } }) => (
           <SeparatorSection>
             <SeparatorTitle>{title}</SeparatorTitle>
